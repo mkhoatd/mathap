@@ -3,7 +3,7 @@ class Point:
         self.x = x
         self.y = y
  
-def Left_index(points):
+def diem_bat_dau(points):
      
     minn = 0
     for i in range(1,len(points)):
@@ -14,23 +14,23 @@ def Left_index(points):
                 minn = i
     return minn
  
-def orientation(p, q, r):
+def huong(p, q, r):
     val = (q.y - p.y) * (r.x - q.x) - \
           (q.x - p.x) * (r.y - q.y)
  
     if val == 0:
-        return 0
+        return 0 #thang hang
     elif val > 0:
-        return 1
+        return 1 #phai
     else:
-        return 2
+        return 2 #trai
  
 def convexHull(points, n):
      
     if n < 3:
         return
  
-    l = Left_index(points)
+    l = diem_bat_dau(points)
  
     hull = []
      
@@ -44,7 +44,7 @@ def convexHull(points, n):
  
         for i in range(n):
              
-            if(orientation(points[p],
+            if(huong(points[p],
                            points[i], points[q]) == 2):
                 q = i
  
