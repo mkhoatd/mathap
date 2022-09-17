@@ -1,68 +1,27 @@
-class Point:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
- 
-def diem_bat_dau(points):
-     
-    minn = 0
-    for i in range(1,len(points)):
-        if points[i].x < points[minn].x:
-            minn = i
-        elif points[i].x == points[minn].x:
-            if points[i].y > points[minn].y:
-                minn = i
-    return minn
- 
-def huong(p, q, r):
-    val = (q.y - p.y) * (r.x - q.x) - \
-          (q.x - p.x) * (r.y - q.y)
- 
-    if val == 0:
-        return 0 #thang hang
-    elif val > 0:
-        return 1 #phai
+import random
+random.seed(0)
+points = [(random.randint(0, 100), random.randint(0, 100)) for i in range(50)]
+convex_hull = []
+points.sort(key=lambda x: [x[0], x[1]])
+start = points.pop(0)
+
+def slope(p1, p2):
+    if p1[0] == p2[0]:
+        return float('inf')
     else:
-        return 2 #trai
- 
-def convexHull(points, n):
-     
-    if n < 3:
-        return
- 
-    l = diem_bat_dau(points)
- 
-    hull = []
-     
-    p = l
-    q = 0
-    while(True):
-         
-        hull.append(p)
- 
-        q = (p + 1) % n
- 
-        for i in range(n):
-             
-            if(huong(points[p],
-                           points[i], points[q]) == 2):
-                q = i
- 
-        p = q
- 
-        if(p == l):
-            break
- 
-    for each in hull:
-        print(points[each].x, points[each].y)
- 
-points = []
-points.append(Point(0, 3))
-points.append(Point(2, 2))
-points.append(Point(1, 1))
-points.append(Point(2, 1))
-points.append(Point(3, 0))
-points.append(Point(0, 0))
-points.append(Point(3, 3))
- 
-convexHull(points, len(points))
+        return 1.0*(p1[1]-p2[1])/(p1[0]-p2[0])
+
+points.sort(key=lambda p: (slope(p, start), -p[1], p[0]))
+
+
+def cross_product(p1, p2, p3):
+    return ((p2[0] - p1[0])*(p3[1] - p1[1])) - ((p2[1] - p1[1])*(p3[0] - p1[0]))
+
+convex_hull.append(start)
+for point in points:
+    convex_hull.append(point)
+    while len(convex_hull) > 2 and cross_product(convex_hull[-3], convex_hull[-2], convex_hull[-1]) < 0:
+        convex_hull.pop(-2)
+
+print("points:", points,'\n\n')
+print("convex hull:", convex_hull)
