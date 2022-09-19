@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "__hash_table": "cpp",
+        "atomic": "cpp",
+        "chrono": "cpp",
+        "locale": "cpp",
+        "string": "cpp",
+        "type_traits": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "algorithm": "cpp",
+        "functional": "cpp",
+        "memory": "cpp",
+        "ios": "cpp"
+    }
+}

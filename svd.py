@@ -41,7 +41,7 @@ def eigvalue3x3(m: 'list[list[float]]') -> 'list[float]':
 
 
 def eigvalue2x2(m: 'list[list[float]]') -> 'list[float]':
-    coeff = [1, -(trace(m)), det(m)]
+    coeff = [1, -(trace(m)), det(m)] # x^2 - trace(m)*x + det(m)
     return list(np.roots(coeff))
 
 
@@ -70,6 +70,7 @@ def eigenvectors(M: 'list[list[float]]') -> 'list[list[float]]':
         return eigenvectors3x3(M)
     else:
         raise NotImplementedError("not implemented yet")
+
 
 
 A = [[1.0, 3.0, 3.0], [2.0, 5.0, 5.0], [7.0, 5.0, 3.0]]
